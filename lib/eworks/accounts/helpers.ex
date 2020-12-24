@@ -66,9 +66,15 @@ defmodule Eworks.Accounts.Helpers do
   end
 
   @doc false
-  @spec _make_string_from_list()
-  def _make_string_from_list() do
-
+  @spec _make_string_from_list(list(), String.t()) :: String.t()
+  def _make_string_from_list(list, current_string) when list == [], do: current_string
+  def _make_string_from_list([head | tail] = list, current_string) do
+    if Enum.count(list) == 1 do
+      current_string <> " and " <> head
+    else
+      current_string = current_string <> ", " <> head
+      _make_string_from_list(tail, current_string)
+    end
   end
 
 end
